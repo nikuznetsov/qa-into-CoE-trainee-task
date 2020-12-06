@@ -1,7 +1,8 @@
+# -*- coding: utf-8 -*-
 import json
 
 def data_download():
-  # Функция загрузки JSON файлов
+  # Г”ГіГ­ГЄГ¶ГЁГї Г§Г ГЈГ°ГіГ§ГЄГЁ JSON ГґГ Г©Г«Г®Гў
   with open('TestcaseStructure.json') as f:
     structure = json.load(f)
   with open('Values.json') as f:
@@ -9,31 +10,31 @@ def data_download():
   return structure, values
 
 def check_in_values(dct, id, key):
-  # Функция для парсинга ветки values(key='title') 
-  # и для получения value напрямую из Values.json(key='value')
+  # Г”ГіГ­ГЄГ¶ГЁГї Г¤Г«Гї ГЇГ Г°Г±ГЁГ­ГЈГ  ГўГҐГІГЄГЁ values(key='title') 
+  # ГЁ Г¤Г«Гї ГЇГ®Г«ГіГ·ГҐГ­ГЁГї value Г­Г ГЇГ°ГїГ¬ГіГѕ ГЁГ§ Values.json(key='value')
   for i in range(len(dct)):
     if dct[i].get('id') == id:
       return dct[i].get(key)
   return ''
 
 def check_in_params(dct, values):
-  # Функция для парсинга ветки params
+  # Г”ГіГ­ГЄГ¶ГЁГї Г¤Г«Гї ГЇГ Г°Г±ГЁГ­ГЈГ  ГўГҐГІГЄГЁ params
   for i in range(len(dct)):
     if 'params' in dct[i].keys():
       dct[i]['params'] = parsing(dct[i].get('params')[0], values)
   return dct
 
 def parsing(dct, values):
-  # Функция для парсинга JSON файла и заполнения value
+  # Г”ГіГ­ГЄГ¶ГЁГї Г¤Г«Гї ГЇГ Г°Г±ГЁГ­ГЈГ  JSON ГґГ Г©Г«Г  ГЁ Г§Г ГЇГ®Г«Г­ГҐГ­ГЁГї value
   try:
-    id = dct.get('id') # поулчаем id словаря
+    id = dct.get('id') # ГЇГ®ГіГ«Г·Г ГҐГ¬ id Г±Г«Г®ГўГ Г°Гї
   except AttributeError:
-    print('Переданный объект не имеет атрибута get. Возможно, проблема с типом данных.')
-  assert isinstance(id, int), print('Проблема с элементом id. Возможно, в словаре нет элемента id.')
+    print('ГЏГҐГ°ГҐГ¤Г Г­Г­Г»Г© Г®ГЎГєГҐГЄГІ Г­ГҐ ГЁГ¬ГҐГҐГІ Г ГІГ°ГЁГЎГіГІГ  get. Г‚Г®Г§Г¬Г®Г¦Г­Г®, ГЇГ°Г®ГЎГ«ГҐГ¬Г  Г± ГІГЁГЇГ®Г¬ Г¤Г Г­Г­Г»Гµ.')
+  assert isinstance(id, int), print('ГЏГ°Г®ГЎГ«ГҐГ¬Г  Г± ГЅГ«ГҐГ¬ГҐГ­ГІГ®Г¬ id. Г‚Г®Г§Г¬Г®Г¦Г­Г®, Гў Г±Г«Г®ГўГ Г°ГҐ Г­ГҐГІ ГЅГ«ГҐГ¬ГҐГ­ГІГ  id.')
 
-  value = check_in_values(values, id, 'value') # получаем value по id из Values.json
+  value = check_in_values(values, id, 'value') # ГЇГ®Г«ГіГ·Г ГҐГ¬ value ГЇГ® id ГЁГ§ Values.json
 
-  if 'values' in dct.keys(): # проверяем, есть ли в словаре ключ values
+  if 'values' in dct.keys(): # ГЇГ°Г®ГўГҐГ°ГїГҐГ¬, ГҐГ±ГІГј Г«ГЁ Гў Г±Г«Г®ГўГ Г°ГҐ ГЄГ«ГѕГ· values
     dct['value'] = check_in_values(dct.get('values'), value, 'title')
     dct['values'] = check_in_params(dct.get('values'), values)
   else:
@@ -47,22 +48,22 @@ try:
 except:
 
   with open('error.json', 'w') as outfile:
-      json.dump({'error': {"message": "Входные файлы некорректны"}}, outfile, ensure_ascii=False, indent=4)
+      json.dump({'error': {"message": "Г‚ГµГ®Г¤Г­Г»ГҐ ГґГ Г©Г«Г» Г­ГҐГЄГ®Г°Г°ГҐГЄГІГ­Г»"}}, outfile, ensure_ascii=False, indent=4)
 
 else:
 
   structure, values = data_download()
 
   params = structure.get('params')
-  assert isinstance(params, list), print('Неверный тип переменной params (должен быть list). Возможно, проблема со структурой файла.')
+  assert isinstance(params, list), print('ГЌГҐГўГҐГ°Г­Г»Г© ГІГЁГЇ ГЇГҐГ°ГҐГ¬ГҐГ­Г­Г®Г© params (Г¤Г®Г«Г¦ГҐГ­ ГЎГ»ГІГј list). Г‚Г®Г§Г¬Г®Г¦Г­Г®, ГЇГ°Г®ГЎГ«ГҐГ¬Г  Г±Г® Г±ГІГ°ГіГЄГІГіГ°Г®Г© ГґГ Г©Г«Г .')
   
   values = values.get('values')
-  assert isinstance(values, list), print('Неверный тип переменной values (должен быть list). Возможно, проблема со структурой файла.')
+  assert isinstance(values, list), print('ГЌГҐГўГҐГ°Г­Г»Г© ГІГЁГЇ ГЇГҐГ°ГҐГ¬ГҐГ­Г­Г®Г© values (Г¤Г®Г«Г¦ГҐГ­ ГЎГ»ГІГј list). Г‚Г®Г§Г¬Г®Г¦Г­Г®, ГЇГ°Г®ГЎГ«ГҐГ¬Г  Г±Г® Г±ГІГ°ГіГЄГІГіГ°Г®Г© ГґГ Г©Г«Г .')
 
-  for i in range(len(params)): # проходим по всем элемента списка и парсим их
+  for i in range(len(params)): # ГЇГ°Г®ГµГ®Г¤ГЁГ¬ ГЇГ® ГўГ±ГҐГ¬ ГЅГ«ГҐГ¬ГҐГ­ГІГ  Г±ГЇГЁГ±ГЄГ  ГЁ ГЇГ Г°Г±ГЁГ¬ ГЁГµ
     params[i] = parsing(params[i], values)
 
-  assert isinstance(params, list), print('Неверный тип переменной params после обработки (должен быть list).')
+  assert isinstance(params, list), print('ГЌГҐГўГҐГ°Г­Г»Г© ГІГЁГЇ ГЇГҐГ°ГҐГ¬ГҐГ­Г­Г®Г© params ГЇГ®Г±Г«ГҐ Г®ГЎГ°Г ГЎГ®ГІГЄГЁ (Г¤Г®Г«Г¦ГҐГ­ ГЎГ»ГІГј list).')
 
-  with open('StructureWithValues.json', 'w') as outfile: # загружаем обработанные данные в JSON
+  with open('StructureWithValues.json', 'w') as outfile: # Г§Г ГЈГ°ГіГ¦Г ГҐГ¬ Г®ГЎГ°Г ГЎГ®ГІГ Г­Г­Г»ГҐ Г¤Г Г­Г­Г»ГҐ Гў JSON
       json.dump({'params': params}, outfile, ensure_ascii=False, indent=2)
