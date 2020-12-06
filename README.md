@@ -21,4 +21,24 @@
 Также я добавил дробный шаг для баллов, чтобы проверять возможные ошибки в четвертях чисел.
 После 500 баллов я увеличивал шаг в зависимости от порядка. Я взял три порядка для проверки: сотни, тысячи и десятки тысяч.
 
-Файл заполнялся с помощью кода.
+Файл заполнялся с помощью кода:
+
+```
+import numpy as np
+
+with open('TaskTestData.md', 'w') as file:
+  for i in np.arange(-100, 0, 0.25):
+    file.write('{} {} \n'.format(i, '0 %'))
+  for i in np.arange(0, 100, 0.25):
+    file.write('{} {} \n'.format(i, '1 %'))
+  for i in np.arange(0, 100, 0.25):
+    file.write('{} {} \n'.format(i, '3 %'))
+  for i in np.arange(200, 500, 0.25):
+    file.write('{} {} \n'.format(i, '3 %'))
+  for i in np.arange(500, 750, 0.25):
+    file.write('{} {} \n'.format(i, '10 %'))
+  for i in np.arange(900, 3000, 1):
+    file.write('{} {} \n'.format(i, '10 %'))
+  for i in np.arange(7500, 25000, 2.5):
+    file.write('{} {} \n'.format(i, '10 %'))
+```
