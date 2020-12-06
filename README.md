@@ -32,10 +32,10 @@ with open('TaskTestData.md', 'w') as file:
     file.write('{} {} \n'.format(i, '0 %'))
   for i in np.arange(0, 100, 0.25):
     file.write('{} {} \n'.format(i, '1 %'))
-  for i in np.arange(0, 100, 0.25):
+  for i in np.arange(100, 200, 0.25):
     file.write('{} {} \n'.format(i, '3 %'))
   for i in np.arange(200, 500, 0.25):
-    file.write('{} {} \n'.format(i, '3 %'))
+    file.write('{} {} \n'.format(i, '5 %'))
   for i in np.arange(500, 750, 0.25):
     file.write('{} {} \n'.format(i, '10 %'))
   for i in np.arange(900, 3000, 1):
