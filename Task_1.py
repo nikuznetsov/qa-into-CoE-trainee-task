@@ -4,9 +4,9 @@ import json
 
 def data_download():
   # Функция загрузки JSON файлов
-  with open('/content/TestcaseStructure.json') as f:
+  with open('TestcaseStructure.json') as f:
     structure = json.load(f)
-  with open('/content/Values.json') as f:
+  with open('Values.json') as f:
     values = json.load(f)
   return structure, values
 
